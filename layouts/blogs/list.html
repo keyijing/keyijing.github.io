@@ -2,7 +2,7 @@
 {{ $categories := site.Taxonomies.categories }}
 <div class="mx-auto flex max-w-screen-xl">
   {{ partial "components/sidebar-taxonomy" (dict "taxonomy" $categories "page_url" .RelPermalink "no_sidebar" false) }}
-  <div class="flex w-full min-w-0 min-h-[calc(100vh-var(--navbar-height))] justify-center break-words pb-8 pr-[calc(env(safe-area-inset-right)-1.5rem)]">
+  <div class="w-full min-w-0 min-h-[calc(100vh-var(--navbar-height))] justify-center break-words pb-8 pr-[calc(env(safe-area-inset-right)-1.5rem)]">
     {{ partial "landing_page.html" . }}
   </div>
 </div>
