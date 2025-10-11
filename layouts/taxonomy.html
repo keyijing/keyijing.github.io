@@ -1,8 +1,8 @@
 {{ define "main" }}
 
-<div class="max-w-prose mx-auto flex justify-left">
+<div class="max-w-prose mx-auto flex justify-start">
   <article class="prose prose-slate lg:prose-xl dark:prose-invert max-w-none">
-    <h1 class="lg:text-6xl !mb-4">{{ partial "functions/translate" .Title }}</h1>
+    <h1 class="!mb-4">{{ partial "functions/translate" .Title }}</h1>
     {{ .Content }}
   </article>
 </div>
@@ -17,7 +17,7 @@
       {{- with site.GetPage (printf "/%s/%s" $type $name) }}
 
         <a href="{{ .RelPermalink }}" class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-          {{ partial "functions/translate" .Name }}
+          {{ partial "functions/translate" .LinkTitle }}
           <span class="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-primary-800 bg-primary-200 rounded-full">
             {{ $count }}
           </span>

@@ -9,9 +9,16 @@ design:
   spacing: "6rem"
 
 sections:
-  - block: resume-biography-2
+  - block: my-resume-biography
     content:
       # Choose a user profile to display (a folder name within `content/authors/`)
       username: admin
       text: ""
+    design:
+      # Apply a gradient background
+      # css_class: hbx-bg-gradient
+      # Avatar customization
+      avatar:
+        size: medium # Options: small (150px), medium (200px, default), large (320px), xl (400px), xxl (500px)
+        shape: circle # Options: circle (default), square, rounded
 ---

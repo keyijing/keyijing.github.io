@@ -3,21 +3,21 @@ html {
 }
 
 #table-of-contents li:hover > a {
-  border-left: 1px solid rgb(var(--color-neutral-600));
+  border-left: 1px solid var(--color-neutral-600);
 }
 
 #table-of-contents li.active:not(:has(li.active)) > a {
-  color: rgb(var(--color-primary-600));
-  border-left: 2px solid rgb(var(--color-primary-600));
+  color: var(--color-primary-600);
+  border-left: 2px solid var(--color-primary-600);
 }
 
 html.dark #table-of-contents li:hover > a {
-  border-left: 1px solid rgb(var(--color-neutral-400));
+  border-left: 1px solid var(--color-neutral-400);
 }
 
 html.dark #table-of-contents li.active:not(:has(li.active)) > a {
-  color: rgb(var(--color-primary-400));
-  border-left: 2px solid rgb(var(--color-primary-400));
+  color: var(--color-primary-400);
+  border-left: 2px solid var(--color-primary-400);
 }
 
 #table-of-contents li > a + ul {

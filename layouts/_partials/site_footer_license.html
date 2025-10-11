@@ -2,6 +2,7 @@
 
 {{ $copyright_license := .Params.copyright.license | default site.Params.footer.copyright.license }}
 {{ $notice := .Params.copyright.notice | default site.Params.footer.copyright.notice }}
+{{ $notice = replace $notice "{user}" "<a href=\"https://github.com/keyijing\">keyijing</a>"}}
 
 {{ if ($copyright_license.enable | default false) }}
 

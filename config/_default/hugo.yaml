@@ -27,7 +27,7 @@ cascade:
     share: false
     profile: false
     # Just use Breadcrumb for navigation on blog post pages?
-    show_breadcrumb: false
+    show_breadcrumb: true
 
 ############################
 ## LANGUAGE
@@ -62,13 +62,15 @@ outputs:
   section: [HTML, RSS]
 imaging:
   resampleFilter: lanczos
-  quality: 80
+  quality: 90
   anchor: smart
+  hint: picture
 timeout: 600000
 taxonomies:
   author: authors
   tag: tags
   category: categories
+  publication_type: publication_types
 markup:
   _merge: deep
   highlight:

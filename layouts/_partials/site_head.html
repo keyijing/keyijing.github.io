@@ -55,18 +55,10 @@
     <link rel="stylesheet" href="{{ $theme_css.RelPermalink }}" />
   {{ end }}
 
-  {{/* Style */}}
-  {{ if ne (os.Getenv "HUGO_BLOX_POSTCSS") "true" }}
-    {{ $styles := resources.Get "dist/wc.min.css" }}
-    <link href="{{ $styles.RelPermalink }}" rel="stylesheet" />
-  {{ else }}
-    {{ $options := dict "inlineImports" true }}
-    {{ $styles := resources.Get "css/styles.css" }}
-    {{ $styles = $styles | resources.PostCSS $options }}
-    {{ if  hugo.IsProduction  }}
-      {{ $styles = $styles | minify | fingerprint "sha256" | resources.PostProcess }}
-    {{ end }}
-    <link href="{{ $styles.RelPermalink }}" rel="stylesheet" />
+  {{/* Tailwind CSS v4 Processing */}}
+  {{/* Use templates.Defer to process CSS after all content is analyzed */}}
+  {{ with (templates.Defer (dict "key" "tailwind-css")) }}
+    {{ partial "css.html" . }}
   {{ end }}
 
   {{/* Load community blox styles */}}
@@ -84,54 +76,12 @@
     <link href="{{ $styles.RelPermalink }}" rel="stylesheet" />
   {{ end }}
 
-  <script>
-    /* Hugo Blox JS Global Init */
-    window.hbb = {
-       defaultTheme: document.documentElement.dataset.wcThemeDefault,
-       setDarkTheme: () => {
-        document.documentElement.classList.add("dark");
-        document.documentElement.style.colorScheme = "dark";
-      },
-       setLightTheme: () => {
-        document.documentElement.classList.remove("dark");
-        document.documentElement.style.colorScheme = "light";
-      }
-    }
-
-    console.debug(`Default Hugo Blox Builder theme is ${window.hbb.defaultTheme}`);
-
-    if ("wc-color-theme" in localStorage) {
-      localStorage.getItem("wc-color-theme") === "dark" ? window.hbb.setDarkTheme() : window.hbb.setLightTheme();
-    } else {
-      window.hbb.defaultTheme === "dark" ? window.hbb.setDarkTheme() : window.hbb.setLightTheme();
-      if (window.hbb.defaultTheme === "system") {
-        window.matchMedia("(prefers-color-scheme: dark)").matches ? window.hbb.setDarkTheme() : window.hbb.setLightTheme();
-      }
-    }
-  </script>
-
-  <script>
-    // Apply Hugo style fixes
-    document.addEventListener('DOMContentLoaded', function () {
-      // Fix Hugo task list style
-      let checkboxes = document.querySelectorAll('li input[type=\'checkbox\'][disabled]');
-      checkboxes.forEach(e => {
-        e.parentElement.parentElement.classList.add('task-list');
-      });
-
-      // Fix Hugo missing <label> around checkbox and its text (fixes Lighthouse accessibility errors)
-      const liNodes = document.querySelectorAll('.task-list li');
-      liNodes.forEach(nodes => {
-        let textNodes = Array.from(nodes.childNodes).filter(node => node.nodeType === 3 && node.textContent.trim().length > 1);
-        if (textNodes.length > 0) {
-          const span = document.createElement('label');
-          textNodes[0].after(span);  // Use first text node as label
-          span.appendChild(nodes.querySelector('input[type=\'checkbox\']'));
-          span.appendChild(textNodes[0]);
-        }
-      });
-    });
-  </script>
+  {{/* Externalized init scripts for CSP-friendly head */}}
+  {{- $hb_head := resources.Get "js/hb-head.js" | js.Build | resources.Minify -}}
+  {{- if hugo.IsProduction -}}
+    {{- $hb_head = $hb_head | fingerprint "sha256" -}}
+  {{- end -}}
+  <script src="{{ $hb_head.RelPermalink }}"{{ if hugo.IsProduction }} integrity="{{ $hb_head.Data.Integrity }}" crossorigin="anonymous"{{ end }}></script>
 
   {{/* Analytics & Verification */}}
   {{/* !CACHED! All analytics and verification code is at site level */}}
@@ -157,7 +107,7 @@
   {{ $twitter_card := "summary_large_image" }}
   {{ if (and (eq .Kind "term") $avatar_image) }}
     {{/* Match image processing in About widget to prevent generating more images than necessary. */}}
-    {{ $og_image = ($avatar_image.Fill "270x270 Center").Permalink }}
+    {{ $og_image = ($avatar_image.Fill "540x540 Center").Permalink }}
     {{ $twitter_card = "summary" }}
   {{ else if $featured_image }}
     {{ $og_image = $featured_image.Permalink }}
@@ -258,10 +208,7 @@
 
   {{/* Init prior to auto-chunking/bundling scripts due to Hugo concurrency issues */}}
   {{/* !CACHED! Initialized once at site level and then cached for each page */}}
-  {{- partialCached "init.html" . -}}
-
-  {{/* Load Third-Party Libraries */}}
-  {{ partial "libraries.html" . }}
+  {{- partialCached "init.html" . "hb_init_once" -}}
 
   {{ $js_license := printf "/*! Hugo Blox Builder Tailwind UI v%s | https://hugoblox.com/ */\n" site.Data.hugoblox.version }}
   {{ $js_license := $js_license | printf "%s/*! Copyright 2016-present George Cushen (https://georgecushen.com/) */\n" }}
@@ -269,13 +216,25 @@
   {{ $js_bundle_head := $js_license | resources.FromString "js/bundle-head.js" }}
   {{ $i18n := dict "copy" (i18n "btn_copy") "copied" (i18n "btn_copied" | default "Copied") }}
   {{ $js_params := dict "hugoEnvironment" hugo.Environment "i18n" $i18n }}
-  {{ $js_academic := resources.Get "js/hb-code-copy.js" | js.Build (dict "targetPath" (printf "js/wow-core-%s.js" .Lang ) "params" $js_params) }}
-  {{ $js_academic := $js_academic | resources.Minify }}
+  {{ $js_hugoblox := resources.Get "js/hb-code-copy.js" | js.Build (dict "targetPath" (printf "js/hugoblox-core-%s.js" .Lang ) "params" $js_params) }}
+  {{ $js_hugoblox := $js_hugoblox | resources.Minify }}
   {{- $js_theme := resources.Get "js/hb-theme.js" | resources.Minify -}}
   {{- $js_lang := resources.Get "js/hb-i18n.js" | resources.Minify -}}
   {{- $js_nav := resources.Get "js/hb-nav.js" | resources.Minify -}}
   {{- $js_sidebar := resources.Get "js/hb-sidebar.js" | resources.Minify -}}
-  {{ $js_bundle := slice $js_bundle_head $js_academic $js_theme $js_lang $js_nav $js_sidebar | resources.Concat (printf "js/hugo-blox-%s.min.js" .Lang) }}
+  {{- $js_notifier := resources.Get "js/hb-notifier.js" | js.Build (dict "targetPath" (printf "js/hb-notifier-%s.js" .Lang ) "params" $js_params) | resources.Minify -}}
+  {{- $js_clipboard := resources.Get "js/hb-clipboard.js" | js.Build (dict "targetPath" (printf "js/hb-clipboard-%s.js" .Lang ) "params" $js_params) | resources.Minify -}}
+  {{- $js_citation := resources.Get "js/hb-citation.js" | js.Build (dict "targetPath" (printf "js/hb-citation-%s.js" .Lang ) "params" $js_params) | resources.Minify -}}
+  
+  {{/* Start with the core scripts */}}
+  {{ $js_bundle_contents := slice $js_bundle_head $js_hugoblox $js_theme $js_lang $js_nav $js_sidebar $js_notifier $js_clipboard $js_citation }}
+
+  {{/* Discover and include block-specific JavaScript */}}
+  {{- with partial "functions/get-block-scripts.html" . -}}
+    {{ $js_bundle_contents = $js_bundle_contents | append . }}
+  {{- end -}}
+  
+  {{ $js_bundle := $js_bundle_contents | resources.Concat (printf "js/hugo-blox-%s.min.js" .Lang) }}
   {{- if hugo.IsProduction -}}
     {{ $js_bundle = $js_bundle | fingerprint "sha256" }}
   {{- end -}}
@@ -284,6 +243,9 @@
     src="{{ $js_bundle.RelPermalink }}"
     integrity="{{ $js_bundle.Data.Integrity }}"
   ></script>
+
+  {{/* Load Third-Party Libraries */}}
+  {{ partial "libraries.html" . }}
 
   {{/* EXTENSIBILITY HOOK: HEAD-END */}}
   {{ partial "functions/get_hook" (dict "hook" "head-end" "context" .) }}

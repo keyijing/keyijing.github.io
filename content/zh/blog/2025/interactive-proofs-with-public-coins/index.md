@@ -10,7 +10,7 @@ tags:
   - TCS
 ---
 
-### Arthur-Merlin proof
+## Arthur-Merlin proof
 
 在交互式证明 $\textbf{IP}$ 类中，verifier 与 prover 交互时，verifier 可以使用 prover 不可见的 private coins 来产生随机性。如果要求 verifier 的随机串完全对 prover 公开，就得到了新的复杂度类 public-coin proof。Public-coin proof 也叫做 Arthur-Merlin proof，其中 Arthur 是 verifier，Merlin 是 prover。Arthur 只能向 Merlin 发送随机串，而 Merlin 需要根据接收到的随机串返回字符串。
 
@@ -53,7 +53,7 @@ tags:
 
 可以证明，对任意常数 $k$ 均有 $\textbf{AM}[k]=\textbf{AM}[2]$。
 
-### AM[poly]=IP[poly]
+## AM[poly]=IP[poly]
 
 事实上，增加 public coins 的限制并不会改变 $\textbf{IP}$ 的定义。
 
@@ -80,7 +80,7 @@ tags:
 
 事实上，进一步可以证明，对任意 $k:\N\to\N$ 均有 $\textbf{IP}[k]\subseteq\textbf{AM}[k+2]$。
 
-### Perfect completeness for AM
+## Perfect completeness for AM
 
 Perfect completeness 限制就是要求交互协议的 completeness 为 $1$。由 $\textbf{IP}[\text{poly}]=\textbf{PSPACE}$ 的证明不难发现 perfect completeness 限制不改变 $\textbf{IP}[\text{poly}]$ 的定义。
 

@@ -3,7 +3,7 @@
 title: 柯怿憬
 
 # Name pronunciation (optional)
-name_pronunciation: Ke Yi Jing
+name_pronunciation: Kē Yì Jǐng
 
 # Full name (for SEO)
 first_name: Yijing
@@ -20,7 +20,7 @@ superuser: true
 highlight_name: true
 
 # Role/position/tagline
-role: First-year undergraduate
+role: Second-year undergraduate
 
 # Organizations/Affiliations to display in Biography blox
 organizations:
@@ -30,7 +30,7 @@ organizations:
 # Social network links
 # Need to use another icon? Simply download the SVG icon to your `assets/media/icons/` folder.
 profiles:
-  - icon: fa/envelope
+  - icon: hero/envelope-solid
     url: 'mailto:2400013060@stu.pku.edu.cn'
   # - icon: brands/x
   #   url: https://twitter.com/GetResearchDev
