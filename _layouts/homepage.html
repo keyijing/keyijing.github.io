@@ -1,0 +1,30 @@
+---
+layout: default
+---
+<div class="container">
+  <aside class="sidebar">
+    <img src="{{ '/assets/img/profile.svg' | relative_url }}" alt="Profile Photo" class="profile-photo">
+    <h1 class="name">{{ site.data.homepage.author.name | default: site.title }}</h1>
+    <p class="title">{{ site.data.homepage.author.title }}</p>
+    <p class="institution">
+      {% if site.data.homepage.author.institution_url %}
+      <a href="{{ site.data.homepage.author.institution_url }}">{{ site.data.homepage.author.institution }}</a>
+      {% else %}
+      {{ site.data.homepage.author.institution }}
+      {% endif %}
+    </p>
+    {% if site.data.homepage.author.contacts %}
+    <hr>
+    <div class="contact-icons">
+      {% for contact in site.data.homepage.author.contacts %}
+      <a href="{{ contact.url }}" title="{{ contact.text }}">
+        <i class="{{ contact.icon }}"></i>
+      </a>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </aside>
+  <main class="content">
+    {{ content }}
+  </main>
+</div>

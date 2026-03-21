@@ -1,0 +1,13 @@
+title: Your Name
+description: Undergraduate Student at Peking University
+url: "https://keyijing.github.io"
+baseurl: ""
+
+
+markdown: kramdown
+permalink: pretty
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md

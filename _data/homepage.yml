@@ -1,0 +1,15 @@
+author:
+  name: Your Name
+  title: Undergraduate Student
+  institution: Peking University
+  institution_url: "https://www.pku.edu.cn/"
+  contacts:
+    - icon: "fas fa-envelope"
+      text: E-mail
+      url: "mailto:yourname@pku.edu.cn"
+    - icon: "fab fa-github"
+      text: GitHub
+      url: "https://github.com/keyijing"
+    - icon: "ai ai-google-scholar"
+      text: Google Scholar
+      url: "https://scholar.google.com/"
