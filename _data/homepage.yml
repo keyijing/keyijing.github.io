@@ -1,12 +1,44 @@
 author:
-  name: Your Name
+  name: 柯怿憬
+  pronunciation: "Kē, Yì jǐng"
   contacts:
     - icon: "fas fa-envelope"
       text: E-mail
-      url: "mailto:yourname@pku.edu.cn"
+      url: "mailto:keyijing@stu.pku.edu.cn"
     - icon: "fab fa-github"
       text: GitHub
       url: "https://github.com/keyijing"
-    - icon: "ai ai-google-scholar"
-      text: Google Scholar
-      url: "https://scholar.google.com/"
+
+education:
+  - title: "Peking University"
+    detail: "B.S. in Computer Science and Technology"
+    year: "2024 — Present"
+
+awards:
+  - title: "China National Scholarship for Undergraduates"
+    year: "2024 — 2025"
+    detail: "Highest scholarship for Chinese undergraduates"
+  - title: "ICPC Asia-East Continent Final Contest"
+    year: "2024"
+    detail: "Gold Medal"
+  - title: "ICPC Asia Shanghai Regional Contest"
+    year: "2024"
+    detail: "Gold Medal (First Place)"
+  - title: "China National Olympiad in Informatics"
+    year: "2023"
+    detail: "Gold Medal"
+
+research:
+  - title: "Frozen Policy Iteration: Computationally Efficient RL under Linear $Q^{\\pi}$ Realizability for Deterministic Dynamics"
+    authors: "Yijing Ke, Zihan Zhang, Ruosong Wang"
+    links:
+      - text: "arXiv"
+        icon: "ai ai-arxiv"
+        url: "https://arxiv.org/abs/2603.00716"
+      - text: "PDF"
+        icon: "fas fa-file-pdf"
+        url: "/assets/pdf/frozen-policy-iteration.pdf"
+      - text: "OpenReview"
+        icon: "fa fa-file"
+        url: "https://openreview.net/forum?id=kW0SudrQEQ"
+    venue: "ICLR 2026"

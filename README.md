@@ -5,25 +5,30 @@ Personal academic homepage built with Jekyll and hosted on GitHub Pages.
 ## Architecture
 
 - **Layout inheritance**: `homepage.html` extends `default.html`. `default.html` is a minimal HTML shell; `homepage.html` adds the two-column (sidebar + content) structure.
-- **Data-driven sidebar**: Author name and contacts are defined in `_data/homepage.yml`; title and institution live in `_includes/sidebar-bio.md` (Markdown, rendered via `markdownify`).
-- **Content separation**: Page content lives in Markdown (`index.md`); layout and styling are separate.
+- **Data-driven sections**: Author info, education, awards, and research are defined in `_data/homepage.yml` as structured data. Sidebar bio (title/institution) lives in `_includes/sidebar-bio.md` (Markdown, rendered via `markdownify`).
+- **Content separation**: Page prose lives in Markdown (`index.md`); structured sections are rendered from YAML data in the layout.
+- **Inline Markdown**: YAML text fields support Markdown (bold, links, math) via the `_includes/inline-md.html` helper.
+- **Math rendering**: KaTeX loaded via CDN in `default.html` with auto-render for `$...$`, `$$...$$`, `\(...\)`, `\[...\]`.
 - **Icons**: Font Awesome 6 + Academicons loaded via CDN in `default.html`. Contact icons are icon-only (no text), displayed as a centered row.
+- **External links**: All links open in a new tab via `<base target="_blank">` in `default.html`.
 
 ## Structure
 
 ```
 _config.yml          # Site-wide Jekyll settings (title, url, markdown, etc.)
-_data/homepage.yml   # Homepage content config (author name, contacts)
+_data/homepage.yml   # Structured data (author, education, awards, research)
 _includes/
   sidebar-bio.md     # Sidebar bio (title, institution) in Markdown
+  inline-md.html     # Reusable inline Markdown filter (markdownify + strip <p>)
 _layouts/
-  default.html       # Base HTML shell (head, CSS, icon CDNs, body)
-  homepage.html      # Two-column layout: sidebar + main content
-_sass/main.scss      # All styles (colors, layout, responsive)
+  default.html       # Base HTML shell (head, CSS, icon CDNs, KaTeX, body)
+  homepage.html      # Two-column layout: sidebar + structured sections
+_sass/main.scss      # All styles (colors, layout, section entries, responsive)
 assets/
   css/style.scss     # Jekyll SCSS entry point; imports main.scss
-  img/profile.svg    # Placeholder profile photo
-index.md             # Homepage content (About, Education, Awards, Publications)
+  img/profile1.png   # Profile photo
+  pdf/               # Paper PDFs (linked from research entries)
+index.md             # Homepage prose (About Me section)
 Gemfile              # Ruby dependencies (github-pages gem)
 ```
 
@@ -31,11 +36,13 @@ Gemfile              # Ruby dependencies (github-pages gem)
 
 | What to change | File |
 |---|---|
-| Author name, contacts | `_data/homepage.yml` |
+| Author name, contacts, pronunciation | `_data/homepage.yml` |
+| Education, awards, research entries | `_data/homepage.yml` |
 | Author title, institution | `_includes/sidebar-bio.md` |
-| Page content | `index.md` |
+| About Me prose | `index.md` |
 | Site metadata | `_config.yml` |
-| Profile photo | `assets/img/profile.svg` |
+| Profile photo | `assets/img/profile1.png` |
+| Paper PDFs | `assets/pdf/` |
 | Styles / colors | `_sass/main.scss` |
 | Layout structure | `_layouts/homepage.html` |
 | Base HTML / CDN links | `_layouts/default.html` |

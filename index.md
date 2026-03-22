@@ -4,26 +4,4 @@ layout: homepage
 
 ## About Me
 
-I am an undergraduate student at Peking University. My research interests include
-[your research interests]. I am passionate about [your passions] and looking forward
-to contributing to the academic community.
-
-## Education
-
-- **B.S. in [Your Major]**, Peking University, 2021 – 2025 (expected)
-
-## Awards
-
-- [Award Name], Peking University, 2024
-- [Award Name], Peking University, 2023
-- [Award Name], Peking University, 2022
-
-## Publications
-
-- **[Paper Title]**.
-  Your Name, Coauthor One, Coauthor Two.
-  *Conference/Journal Name*, 2024.
-
-- **[Paper Title]**.
-  Coauthor One, Your Name, Coauthor Two.
-  *Conference/Journal Name*, 2023.
+I'm Yijing Ke, an undergraduate student in [Turing Class](https://cfcs.pku.edu.cn/english/research/turing_program/introduction1/index.htm) 2024 at the [School of Electronics Engineering and Computer Science (EECS)](https://eecs.pku.edu.cn/) of [Peking University](https://www.pku.edu.cn/). My research interests include **Learning Theory** and **Reinforcement Learning**. I am passionate about mathematics and AI, and looking forward to contributing to the academic community.

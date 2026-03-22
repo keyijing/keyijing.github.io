@@ -3,7 +3,10 @@ layout: default
 ---
 <div class="container">
   <aside class="sidebar">
-    <img src="{{ '/assets/img/profile.svg' | relative_url }}" alt="Profile Photo" class="profile-photo">
+    <img src="{{ '/assets/img/profile1.png' | relative_url }}" alt="Profile Photo" class="profile-photo">
+    {% if site.data.homepage.author.pronunciation %}
+    <span class="pronunciation">{{ site.data.homepage.author.pronunciation }}</span>
+    {% endif %}
     <h1 class="name">{{ site.data.homepage.author.name | default: site.title }}</h1>
     <div class="bio">
       {% capture bio %}{% include sidebar-bio.md %}{% endcapture %}
@@ -22,5 +25,53 @@ layout: default
   </aside>
   <main class="content">
     {{ content }}
+
+    {% if site.data.homepage.education %}
+    <h2>Education</h2>
+    {% for edu in site.data.homepage.education %}
+    <div class="section-entry">
+      <div class="entry-main">
+        <div class="entry-title">{% include inline-md.html text=edu.title %}</div>
+        <div class="entry-detail">{% include inline-md.html text=edu.detail %}</div>
+      </div>
+      <span class="entry-year">{{ edu.year }}</span>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    {% if site.data.homepage.awards %}
+    <h2>Selected Awards</h2>
+    {% for award in site.data.homepage.awards %}
+    <div class="section-entry">
+      <div class="entry-main">
+        <div class="entry-title">{% include inline-md.html text=award.title %}</div>
+        <div class="entry-detail">{% include inline-md.html text=award.detail %}</div>
+      </div>
+      <span class="entry-year">{{ award.year }}</span>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    {% if site.data.homepage.research %}
+    <h2>Research</h2>
+    {% for paper in site.data.homepage.research %}
+    <div class="section-entry research-entry">
+      <div class="entry-main">
+        <div class="entry-title">{% include inline-md.html text=paper.title %}</div>
+        <div class="entry-authors">{% include inline-md.html text=paper.authors %}</div>
+        <div class="entry-links">
+          {% for link in paper.links %}
+          <a href="{{ link.url }}" class="paper-link" title="{{ link.text }}">
+            <i class="{{ link.icon }}"></i> {{ link.text }}
+          </a>
+          {% endfor %}
+        </div>
+        <div class="entry-venue">{% include inline-md.html text=paper.venue %}</div>
+        {% if paper.links %}
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+    {% endif %}
   </main>
 </div>
