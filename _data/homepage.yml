@@ -1,8 +1,5 @@
 author:
   name: Your Name
-  title: Undergraduate Student
-  institution: Peking University
-  institution_url: "https://www.pku.edu.cn/"
   contacts:
     - icon: "fas fa-envelope"
       text: E-mail

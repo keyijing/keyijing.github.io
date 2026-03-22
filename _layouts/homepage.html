@@ -5,14 +5,10 @@ layout: default
   <aside class="sidebar">
     <img src="{{ '/assets/img/profile.svg' | relative_url }}" alt="Profile Photo" class="profile-photo">
     <h1 class="name">{{ site.data.homepage.author.name | default: site.title }}</h1>
-    <p class="title">{{ site.data.homepage.author.title }}</p>
-    <p class="institution">
-      {% if site.data.homepage.author.institution_url %}
-      <a href="{{ site.data.homepage.author.institution_url }}">{{ site.data.homepage.author.institution }}</a>
-      {% else %}
-      {{ site.data.homepage.author.institution }}
-      {% endif %}
-    </p>
+    <div class="bio">
+      {% capture bio %}{% include sidebar-bio.md %}{% endcapture %}
+      {{ bio | markdownify }}
+    </div>
     {% if site.data.homepage.author.contacts %}
     <hr>
     <div class="contact-icons">

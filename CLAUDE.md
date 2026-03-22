@@ -2,32 +2,16 @@
 
 ## Project Overview
 
-Jekyll-based personal academic homepage for GitHub Pages (`keyijing.github.io`).
+Jekyll-based personal academic homepage for GitHub Pages (`keyijing.github.io`). See `README.md` for full architecture, file structure, and styling details.
 
-## Architecture
+## Coding Guidance
 
-- **Layout inheritance**: `homepage.html` extends `default.html`. `default.html` is a minimal HTML shell; `homepage.html` adds the two-column (sidebar + content) structure.
-- **Data-driven sidebar**: Author name, title, institution, and contacts are defined in `_data/homepage.yml` and rendered via Liquid (`site.data.homepage.author`).
-- **Content separation**: Page content lives in Markdown (`index.md`); layout and styling are separate.
-- **Icons**: Font Awesome 6 + Academicons loaded via CDN in `default.html`. Contact icons are icon-only (no text), displayed as a centered row.
-
-## Styling Conventions
-
-- Primary color `#0070f3` applied to **links only**, not headings.
-- Headings use default text color with a `#ddd` bottom border.
-- Contact icons are gray (`#555`), turning primary on hover.
-- SCSS variables and CSS custom properties are both used (`$primary` / `--primary`).
-
-## Key Files to Edit
-
-| What to change | File |
-|---|---|
-| Author info, contacts | `_data/homepage.yml` |
-| Page content | `index.md` |
-| Site metadata | `_config.yml` |
-| Styles / colors | `_sass/main.scss` |
-| Layout structure | `_layouts/homepage.html` |
-| Base HTML / CDN links | `_layouts/default.html` |
+- Prefer editing existing files over creating new ones.
+- Keep content in Markdown (`index.md`); layout and styling stay separate.
+- Use `_data/homepage.yml` for author name/contacts; use `_includes/sidebar-bio.md` for title/institution.
+- Use SCSS variables (`$primary`) and CSS custom properties (`--primary`) for colors; keep them in sync.
+- Primary color `#0070f3` is for links only — not headings. Sidebar bio links inherit text color and only highlight on hover.
+- Load icons via CDN (Font Awesome 6 + Academicons); don't bundle icon fonts locally.
 
 ## Build
 
