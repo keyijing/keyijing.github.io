@@ -9,8 +9,7 @@ layout: default
     {% endif %}
     <h1 class="name">{{ site.data.homepage.author.name | default: site.title }}</h1>
     <div class="bio">
-      {% capture bio %}{% include sidebar-bio.md %}{% endcapture %}
-      {{ bio | markdownify }}
+      {{ site.data.homepage.author.bio | markdownify }}
     </div>
     {% if site.data.homepage.author.contacts %}
     <hr>

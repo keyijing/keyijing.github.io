@@ -5,7 +5,7 @@ Personal academic homepage built with Jekyll and hosted on GitHub Pages.
 ## Architecture
 
 - **Layout inheritance**: `homepage.html` extends `default.html`. `default.html` is a minimal HTML shell; `homepage.html` adds the two-column (sidebar + content) structure.
-- **Data-driven sections**: Author info, education, awards, and research are defined in `_data/homepage.yml` as structured data. Sidebar bio (title/institution) lives in `_includes/sidebar-bio.md` (Markdown, rendered via `markdownify`).
+- **Data-driven sections**: Author info (including bio in Markdown), education, awards, and research are all defined in `_data/homepage.yml`.
 - **Content separation**: Page prose lives in Markdown (`index.md`); structured sections are rendered from YAML data in the layout.
 - **Inline Markdown**: YAML text fields support Markdown (bold, links, math) via the `_includes/inline-md.html` helper.
 - **Math rendering**: KaTeX loaded via CDN in `default.html` with auto-render for `$...$`, `$$...$$`, `\(...\)`, `\[...\]`.
@@ -18,7 +18,6 @@ Personal academic homepage built with Jekyll and hosted on GitHub Pages.
 _config.yml          # Site-wide Jekyll settings (title, url, markdown, etc.)
 _data/homepage.yml   # Structured data (author, education, awards, research)
 _includes/
-  sidebar-bio.md     # Sidebar bio (title, institution) in Markdown
   inline-md.html     # Reusable inline Markdown filter (markdownify + strip <p>)
 _layouts/
   default.html       # Base HTML shell (head, CSS, icon CDNs, KaTeX, body)
@@ -38,7 +37,7 @@ Gemfile              # Ruby dependencies (github-pages gem)
 |---|---|
 | Author name, contacts, pronunciation | `_data/homepage.yml` |
 | Education, awards, research entries | `_data/homepage.yml` |
-| Author title, institution | `_includes/sidebar-bio.md` |
+| Author bio (title, institution) | `_data/homepage.yml` → `author.bio` |
 | About Me prose | `index.md` |
 | Site metadata | `_config.yml` |
 | Profile photo | `assets/img/profile1.png` |
